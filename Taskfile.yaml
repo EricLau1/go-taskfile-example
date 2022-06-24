@@ -1,0 +1,30 @@
+version: '3'
+
+tasks:
+  all:
+    deps:
+      - task: build-account
+      - task: build-posts
+      - task: build-comments
+
+  build-proto:
+    cmds:
+      - protoc --go_out=. --go-grpc_out=. ./protos/*.proto
+      - echo "proto done."
+    silent: true
+
+  build-account:
+    cmds:
+      - go build -o bin/account account/main.go
+      - echo "account done."
+    silent: true
+  build-posts:
+    cmds:
+      - go build -o bin/posts posts/main.go
+      - echo "posts done."
+    silent: true
+  build-comments:
+    cmds:
+      - go build -o bin/comments comments/main.go
+      - echo "comments done."
+    silent: true

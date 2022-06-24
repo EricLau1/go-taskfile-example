@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package = "./pb";
+
+import "google/protobuf/timestamp.proto";
+
+message Comment {
+  string id = 1;
+  string author_id = 2;
+  string post_id = 3;
+  string text = 4;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
+}
+
+message CreateCommentRequest {
+  string author_id = 1;
+  string post_id = 2;
+  string text = 3;
+}
+
+message GetCommentRequest {
+  string id = 1;
+}
+
+message GetCommentsRequest {
+  int32 limit = 1;
+}
+
+message DeleteCommentRequest {
+  string id = 1;
+}
+
+service CommentService {
+  rpc CreateComment(CreateCommentRequest) returns (Comment);
+  rpc GetComment(GetCommentRequest) returns (Comment);
+  rpc GetComments(GetCommentsRequest) returns (stream Comment);
+  rpc DeleteComment(DeleteCommentRequest) returns (Comment);
+}

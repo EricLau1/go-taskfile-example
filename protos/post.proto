@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package = "./pb";
+
+import "google/protobuf/timestamp.proto";
+
+message Post {
+  string id = 1;
+  string author_id = 2;
+  string title = 3;
+  string body = 4;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
+}
+
+message CreatePostRequest {
+  string author_id = 2;
+  string title = 3;
+  string body = 4;
+}
+
+message GetPostRequest {
+  string id = 1;
+}
+
+message GetPostsRequest {
+  int32 limit = 1;
+}
+
+message DeletePostRequest {
+  string id = 1;
+}
+
+service PostService {
+  rpc CreatePost(CreatePostRequest) returns (Post);
+  rpc GetPost(GetPostRequest) returns (Post);
+  rpc GetPosts(GetPostsRequest) returns (stream Post);
+  rpc DeletePost(DeletePostRequest) returns (Post);
+}
