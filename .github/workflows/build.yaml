@@ -12,16 +12,16 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-    - name: Download go-task
-      uses: arduino/setup-task@v1
-      run: |-
-        task --version
+      - name: Download go-task
+        uses: arduino/setup-task@v1
+        run: |-
+          task --version
 
-    - name: Building
-      run: |-
-        mkdir -p bin
-        ./build.sh
+      - name: Building
+        run: |-
+          mkdir -p bin
+          ./build.sh
 
-    - name: List binaries
-      run: |-
-        ls -la bin/
+      - name: List binaries
+        run: |-
+          ls -la bin/
